@@ -5,15 +5,17 @@ import {useQuery } from 'react-query';
 import axios from 'axios';
 
 function App() {
-  const {data, isLoading, } = useQuery("courses", () => {
+  const {data, isLoading, } = useQuery("api", () => {
     return axios
-      .get("http://localhost:5000/courses")
+      .get("http://localhost:5000/api")
       .then(response => response.data)
   });
 
   if(isLoading) {
     return <p>Loading</p>
   }
+
+  console.log(data)
 
   return (
     <div className="App">
@@ -22,17 +24,10 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        {data.map((course:any) => (
+        {data.courses.map((course:any) => (
           <a>{course.id}</a>
         ))}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        
       </header>
     </div>
   );
