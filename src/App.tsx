@@ -5,7 +5,7 @@ import './App.css';
 import { useMutation, useQuery, useQueryClient, useQueries } from 'react-query';
 import { useCourseData } from './hooks/useCourseData'
 import Course from './components/course/Course';
-import { Tile } from './components/Tile';
+import { Tile } from './components/course/Tile';
 
 function App() {
 
@@ -29,17 +29,13 @@ function App() {
         <h2>Todos & React Query</h2>
 
 
-        {data.map((item: Course) => (
+        {data?.map((item: Course) => (
           <>
             <Tile course={item} /> 
           </>
 
         ))}
-
-
-        <div>
-
-        </div>
+  
         {/* <Tile course={fakeCourse} /> */}
         {/* {courses.map((course: any) => (
           <div

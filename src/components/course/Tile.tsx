@@ -1,4 +1,4 @@
-import Course from "./course/Course"
+import Course from "./Course"
 
 export interface CourseInterface {
   course: Course;

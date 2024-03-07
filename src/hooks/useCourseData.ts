@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 
-import axios, { AxiosPromise } from "axios"
-import { CourseInterface } from "../components/Tile";
+import axios from "axios"
 
 export function useCourseData() {
   const query = useQuery({
