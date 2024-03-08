@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
@@ -6,21 +6,16 @@ import { useMutation, useQuery, useQueryClient, useQueries } from 'react-query';
 import { useCourseData } from './hooks/useCourseData'
 import Course from './components/course/Course';
 import { Tile } from './components/course/Tile';
+import { useBookmarkData, useSaveBookmark } from './hooks/useBookmarkData';
+import { BookmarkButton } from './components/bookmark/BookmarkButton';
 
 function App() {
 
-  const { data, isLoading } = useCourseData();
+  const { data: courseListData, isLoading: isLoadingCourse } = useCourseData();
+  const {saveBookmark} = useSaveBookmark();
+  const [selectedCourse, setSelectedCourse] = useState('')
+  console.log('selectedCourse', selectedCourse)
 
-  // if (isLoading) {
-  //   return <div className="loading">Carregando...</div>;
-  // }
-
-  // if (coursesQuery.error) {
-  //   return <div className="loading">Algo deu errado!</div>;
-  // }
-  
-  console.log('isLoading', isLoading)
-  console.log('aqui', data ? data[0] : '')
 
 
   return (
@@ -29,32 +24,25 @@ function App() {
         <h2>Todos & React Query</h2>
 
 
-        {data?.map((item: Course) => (
+        {courseListData?.map((item: Course) => (
           <>
-            <Tile course={item} /> 
+          <div onClick={() => setSelectedCourse(item.id)}>
+            <Tile course={item}/> 
+          </div>
+            
           </>
 
         ))}
-  
-        {/* <Tile course={fakeCourse} /> */}
-        {/* {courses.map((course: any) => (
-          <div
-            onClick={() =>
-              mutation.mutate(course.id)
-            }
-            key={course.id}
-          >
-            {course.id}
-          </div>
-        ))}
+
+        {/* <div
+          onClick={() => saveBookmark.mutate('999')}
+        >
+          clica aqui
+        </div> */}
         <hr/>
-        {saves.map((saved: any) => (
-          <div
-            key={saved.id}
-          >
-            {saved.id}
-          </div>
-        ))} */}
+        <hr/>
+
+        <BookmarkButton id={selectedCourse}/>
       </div>
     </div>
   );
