@@ -1,5 +1,5 @@
 
-import { Card, CardContent, Typography } from "@mui/joy";
+import { Avatar, Card, CardContent, Grid, Typography } from "@mui/joy";
 import Course from "./Course"
 import * as moment from 'moment';
 
@@ -21,22 +21,22 @@ function formatedDate(timestamp: [number, number][]): DateTimeInfo {
   const endTimes: string[] = [];
 
   for (const pair of timestamp) {
-      const startTime = moment.unix(pair[0]);
-      const endTime = moment.unix(pair[1]);
+    const startTime = moment.unix(pair[0]);
+    const endTime = moment.unix(pair[1]);
 
-      const startWeekday = startTime.format('dddd');
-      const endWeekday = endTime.format('dddd');
-      const monthName = startTime.format('MMMM');
-      const startDayOfMonth = startTime.format('DD');
-      const endDayOfMonth = endTime.format('DD');
-      const startTimeFormatted = formatTime(startTime);
-      const endTimeFormatted = formatTime(endTime);
+    const startWeekday = startTime.format('dddd');
+    const endWeekday = endTime.format('dddd');
+    const monthName = startTime.format('MMMM');
+    const startDayOfMonth = startTime.format('DD');
+    const endDayOfMonth = endTime.format('DD');
+    const startTimeFormatted = formatTime(startTime);
+    const endTimeFormatted = formatTime(endTime);
 
-      weekdays.push(startWeekday, endWeekday);
-      monthNames.push(monthName);
-      daysOfMonth.push(startDayOfMonth, endDayOfMonth);
-      startTimes.push(startTimeFormatted);
-      endTimes.push(endTimeFormatted);
+    weekdays.push(startWeekday, endWeekday);
+    monthNames.push(monthName);
+    daysOfMonth.push(startDayOfMonth, endDayOfMonth);
+    startTimes.push(startTimeFormatted);
+    endTimes.push(endTimeFormatted);
   }
 
   const uniqueWeekdays = weekdays.filter((day, index) => weekdays.indexOf(day) === index);
@@ -55,8 +55,8 @@ function formatedDate(timestamp: [number, number][]): DateTimeInfo {
   const time = `${formattedStartTimes} - ${formattedEndTimes}`;
 
   return {
-      text: text,
-      time: time
+    text: text,
+    time: time
   };
 
 }
@@ -67,29 +67,34 @@ function formatTime(time: moment.Moment): string {
   const period = time.format('a');
 
   if (minute === '00') {
-      return `${hour} ${period}`;
+    return `${hour} ${period}`;
   } else {
-      return `${hour}:${minute} ${period}`;
+    return `${hour}:${minute} ${period}`;
   }
 }
 
-export function Tile({course}: CourseInterface) {
+export function Tile({ course }: CourseInterface) {
 
   return (
-    <>
-
-      <CardContent>
-        <Typography level="title-lg">
-        {formatedDate(course.dates).text}
-        <br/>
-        {formatedDate(course.dates).time}
-
+    <Grid container spacing={2}>
+      <Grid xs={8}>
+        <Typography level="h3" sx={{wordBreak: 'break-all'}}>
+          {formatedDate(course.dates).text}
         </Typography>
-
-      </CardContent>
-
-    </>
-
+        <Typography level="body-lg" sx={{ fontWeight: 500 }}>
+          {formatedDate(course.dates).time}
+        </Typography>
+      </Grid>
+      <Grid sx={{justifySelf: "left"}} xs={4}>
+        <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <Grid >
+            <Avatar alt="Remy Sharp" src={course.instructors[0].portrait_image} size="lg" />
+          </Grid>
+            <Typography level="title-sm" sx={{ fontWeight: 400 }}>Instructor:</Typography>
+            <Typography level="title-sm" sx={{ fontWeight: 400 }}>{course.instructors[0].first_name}</Typography>
+          </Grid>
+        </Grid>
+    </Grid>
   )
 }
 

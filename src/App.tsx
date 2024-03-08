@@ -32,11 +32,9 @@ function App() {
                 sx={{ gap: 2 }}
               >
                 {courseListData?.map((item: Course) => (
-                  <Grid key={item.id}>
-                    <Sheet
-                      component="label"
-                      key={item.id}
-                      variant="outlined"
+                  <div onClick={() => setSelectedCourse(item.id)}>
+                  <Grid key={item.id} sx={{width: '420px'}}>
+                    <Sheet component="label" key={item.id} variant="outlined"
                       sx={
                         [{
                           p: 2,
@@ -55,27 +53,16 @@ function App() {
                       ]
                         }
                     >
-                      <Grid
-                        display="flex"
-                        alignItems="flex-end"
-                      > 
-                         <Radio
-                            value={`course${item.id}`}
-                            variant="outlined"
-                            sx={{flexDirection: 'row'}}
-                            color="primary"
-                        />
+                      <Grid display="flex" alignItems="flex-end" sx={{paddingLeft: 0}}> 
+                        <Radio value={`course${item.id}`} variant="outlined" sx={{flexDirection: 'row'}} color="primary" />
                         <Typography level="title-sm" sx={{ marginLeft: '10px' }}>
                           Virtual Course
                         </Typography>
-                      </Grid>
-
-                     
-                      <div onClick={() => setSelectedCourse(item.id)}>
-                        <Tile course={item} />
-                      </div>
+                      </Grid>                     
+                      <Tile course={item} />
                     </Sheet>
                   </Grid>
+                  </div>
                 ))}
               </RadioGroup>
 
