@@ -15,7 +15,6 @@ function App() {
   const { data: courseListData, isLoading: isLoadingCourse } = useCourseData();
   const { saveBookmark } = useSaveBookmark();
   const [selectedCourse, setSelectedCourse] = useState('')
-  console.log('selectedCourse', selectedCourse)
 
   return (
     <div className="app-container">
