@@ -14,3 +14,4 @@ export function useCourseData() {
     data: query.data?.data
   }
 }
+

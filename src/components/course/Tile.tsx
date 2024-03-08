@@ -1,22 +1,43 @@
 
 import { Card, CardContent } from "@mui/joy";
 import Course from "./Course"
+import * as moment from 'moment';
 
 export interface CourseInterface {
   course: Course;
 }
 
+export interface DateTimeInfo {
+  dayOfWeek: string;
+  month: string;
+  day: string;
+}
+
+function formatedDate(timestamp: number): DateTimeInfo{
+  
+  const convertTimestamp = moment.unix(timestamp);
+
+  return {
+    dayOfWeek: convertTimestamp.format('dddd'),
+    month: convertTimestamp.format('MMMM'),
+    day: convertTimestamp.format('DD')
+  }
+}
+
 export function Tile({ course }: CourseInterface) {
   const { id, dates, location, instructors } = course
+  console.log('couse:-', course)
   return (
     <>
     
       <CardContent>
         <p>Id: {id} </p>
-        {dates.map((date) => (
+        {dates.map((dateTime) => (
           <>
-            <p>Start: {date[0]}</p>
-            <p>End: {date[1]}</p>
+            <p>{dateTime.map((each) => formatedDate(each).dayOfWeek)}</p>
+            <p>{formatedDate(dateTime[0]).dayOfWeek}, {formatedDate(dateTime[0]).month} {formatedDate(dateTime[0]).day}</p>
+            <p>End: {dateTime[1]}</p>
+            <p>Teste {formatedDate(dateTime[0]).dayOfWeek} </p>
           </>
         ))}
         <p>Location: {location.timezone}</p>
