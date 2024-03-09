@@ -3,7 +3,7 @@ import { useBookmarkData, useRemoveBookmark, useSaveBookmark } from "../../hooks
 import { Saved } from "./Saved";
 import { error } from "console";
 import { Button } from "@mui/joy";
-import { BookmarkBorderOutlined } from "@mui/icons-material";
+import { BookmarkBorderOutlined, BookmarkOutlined } from "@mui/icons-material";
 
 export function BookmarkButton({ id }: Saved) {
   const [bookmarked, setBookmarked] = useState<boolean>(false);
@@ -11,6 +11,7 @@ export function BookmarkButton({ id }: Saved) {
   const { deleteCourse } = useRemoveBookmark();
   const { data: bookmarkedData, isLoading: isLoadingBookmarked } = useBookmarkData();
 
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const [bookmarkedList, setBookmarkedList] = useState<Saved[]>([]);
 
@@ -63,8 +64,12 @@ export function BookmarkButton({ id }: Saved) {
     }
   }
 
+  const toggleBookmark = () => {
+    setIsBookmarked(prevState => !prevState);
+  };
+
   return (
-    <Button color="primary" variant="plain" startDecorator={<BookmarkBorderOutlined />}
+    <Button color="primary" onClick={toggleBookmark} variant="plain" startDecorator={isBookmarked ? <BookmarkOutlined />: <BookmarkBorderOutlined /> }
       sx={[{ mt: '10px', fontSize: '1rem' },
       {
         '&:hover': { textDecoration: 'underline', backgroundColor: 'white' }
