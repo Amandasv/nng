@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useBookmarkData, useRemoveBookmark, useSaveBookmark } from "../../hooks/useBookmarkData";
 import { Saved } from "./Saved";
 import { error } from "console";
+import { Button } from "@mui/joy";
+import { BookmarkBorderOutlined } from "@mui/icons-material";
 
 export function BookmarkButton({ id }: Saved) {
   const [bookmarked, setBookmarked] = useState<boolean>(false);
@@ -21,7 +23,7 @@ export function BookmarkButton({ id }: Saved) {
   const existe = bookmarkedList.some(item => item.id === id);
 
   useEffect(() => {
-    if(existe){
+    if (existe) {
       console.log('caiu no useEffect')
       setBookmarked(true)
     }
@@ -35,14 +37,14 @@ export function BookmarkButton({ id }: Saved) {
 
   const addBookmark = () => {
     console.log('caiu do addBookmark')
-    if(id) {
+    if (id) {
       saveBookmark.mutate(id)
       if (saveBookmark.isSuccess) {
         console.log('SUCESSO')
         setBookmarked(true)
       }
     }
-   
+
   }
 
   const removeBookmark = () => {
@@ -62,18 +64,24 @@ export function BookmarkButton({ id }: Saved) {
   }
 
   return (
-    <div>
-      {bookmarkedData?.map((item: any) => (
-          <>
-            <p>Id: {item.id}</p>
-          </>
-
-        ))}
-
-      <button onClick={handleBookmarkClick}>
-        {bookmarked ? 'Remover Bookmark' : 'Adicionar Bookmark'}
-      </button>
-      {bookmarked && <p>id: {id} Adicionado!</p>}
-    </div>
+    <Button color="primary" variant="plain" startDecorator={<BookmarkBorderOutlined />}
+      sx={[{ mt: '10px', fontSize: '1rem' },
+      {
+        '&:hover': { textDecoration: 'underline', backgroundColor: 'white' }
+      }]}>
+      Save Course
+    </Button>
   )
 }
+
+// {bookmarkedData?.map((item: any) => (
+//   <>
+//     <p>Id: {item.id}</p>
+//   </>
+
+// ))}
+
+// <button onClick={handleBookmarkClick}>
+// {bookmarked ? 'Remover Bookmark' : 'Adicionar Bookmark'}
+// </button>
+// {bookmarked && <p>id: {id} Adicionado!</p>}

@@ -16,6 +16,7 @@ const theme = extendTheme({
     display: 'Source Sans 3', // applies to `h1`–`h4`
     body: 'Source Sans 3', // applies to `title-*` and `body-*`
   },
+  
 });
 
 root.render(
