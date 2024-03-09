@@ -4,15 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import { CssVarsProvider, extendTheme } from '@mui/joy';
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const theme = extendTheme({
+  fontFamily: {
+    display: 'Source Sans 3', // applies to `h1`–`h4`
+    body: 'Source Sans 3', // applies to `title-*` and `body-*`
+  },
+});
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <CssVarsProvider theme={theme}>
+        <App />
+      </CssVarsProvider>
     </QueryClientProvider>
    
   </React.StrictMode>
