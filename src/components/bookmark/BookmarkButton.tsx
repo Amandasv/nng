@@ -21,21 +21,13 @@ export function BookmarkButton({ id }: Saved) {
     }
   }, [bookmarkedData, bookmarked])
 
-  // const existe = bookmarkedList.some(item => item.id === id);
-
   useEffect(() => {
-    console.log('id->', id)
-    // if (existe) {
-    //   console.log('caiu no useEffect')
-    //   setBookmarked(true)
-    // }
+    if(bookmarkedList.some(item => item.id === id)){
+      setIsBookmarked(true)
+    } else {
+      setIsBookmarked(false)
+    }
   }, [id])
-
-
-  // console.log('existe??', existe)
-
-  // console.log('state -bookmarkedList', bookmarkedList)
-
 
   const addBookmark = () => {
     if (id) {
@@ -49,26 +41,23 @@ export function BookmarkButton({ id }: Saved) {
   }
 
   const removeBookmark = () => {
-    console.log('caiu no removeBookmark')
-    // if (deleteCourse.isSuccess) {
-    //   console.log('foi DELETADO com SUCESSO')
-    //   setBookmarked(false)
-    // }
+    if(id) {
+      try {
+        deleteCourse.mutate(id)
+        setIsBookmarked(false) 
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 
   const handleBookmarkClick = () => {
     if (isBookmarked) {
-      console.log('true')
       removeBookmark();
     } else {
-      console.log('false')
       addBookmark();
     }
   }
-
-  // const toggleBookmark = () => {
-  //   setIsBookmarked(prevState => !prevState);
-  // };
 
   return (
     <Button color="primary" onClick={handleBookmarkClick} variant="plain" startDecorator={isBookmarked ? <BookmarkOutlined />: <BookmarkBorderOutlined /> }
@@ -80,15 +69,3 @@ export function BookmarkButton({ id }: Saved) {
     </Button>
   )
 }
-
-// {bookmarkedData?.map((item: any) => (
-//   <>
-//     <p>Id: {item.id}</p>
-//   </>
-
-// ))}
-
-// <button onClick={handleBookmarkClick}>
-// {bookmarked ? 'Remover Bookmark' : 'Adicionar Bookmark'}
-// </button>
-// {bookmarked && <p>id: {id} Adicionado!</p>}
