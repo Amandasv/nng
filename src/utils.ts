@@ -1,4 +1,5 @@
 import moment from "moment";
+import * as momentTimezone from 'moment-timezone';
 
 export interface DateTimeInfo {
   text: string;
@@ -64,4 +65,18 @@ export function formatTime(time: moment.Moment): string {
   } else {
     return `${hour}:${minute} ${period}`;
   }
+}
+
+export function getLocationTimezoneName(timezone: string): string {
+  const timezoneMap: { [key: string]: string } = {
+    "America/New_York": "New York City Time"
+  }
+  return timezoneMap[timezone] || timezone;
+}
+
+export function getMonthAndDay(timestamp: number): string {
+  const date = moment.unix(timestamp);
+  const month = date.format('MMMM');
+  const day = date.format('DD');
+  return `${month} ${day}`;
 }

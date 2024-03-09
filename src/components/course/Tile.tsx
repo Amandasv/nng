@@ -2,7 +2,7 @@
 import { Avatar, Card, CardContent, Grid, Typography } from "@mui/joy";
 import Course from "./Course"
 import * as moment from 'moment';
-import { formatedDate } from "../../utils";
+import { formatedDate, getLocationTimezoneName, getMonthAndDay } from "../../utils";
 
 export interface CourseInterface {
   course: Course;
@@ -18,6 +18,13 @@ export function Tile({ course }: CourseInterface) {
         </Typography>
         <Typography level="body-lg" sx={{ fontWeight: 500 }}>
           {formatedDate(course.dates).time}
+        </Typography>
+        <Typography level="title-sm">
+          {getLocationTimezoneName(course.location.timezone)}
+        </Typography>
+
+        <Typography level="title-sm">
+          ${course.pricing.amount} {course.pricing.currency} Until {getMonthAndDay(course.pricing.valid_until)}
         </Typography>
       </Grid>
       <Grid sx={{justifySelf: "left"}} xs={4}>
