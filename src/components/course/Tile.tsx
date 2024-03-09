@@ -11,20 +11,20 @@ export interface CourseInterface {
 export function Tile({ course }: CourseInterface) {
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{pl: '30px'}}>
       <Grid xs={8}>
-        <Typography level="h3" sx={{wordBreak: 'break-all'}}>
+        <Typography level="h3" sx={{ fontWeight: 700 }}>
           {formatedDate(course.dates).text}
         </Typography>
-        <Typography level="body-lg" sx={{ fontWeight: 500 }}>
+        <Typography level="h3" sx={{ fontWeight: 400 }}>
           {formatedDate(course.dates).time}
         </Typography>
-        <Typography level="title-sm">
+        <Typography level="title-sm" sx={{marginBottom: '10px'}}>
           {getLocationTimezoneName(course.location.timezone)}
         </Typography>
 
         <Typography level="title-sm">
-          ${course.pricing.amount} {course.pricing.currency} Until {getMonthAndDay(course.pricing.valid_until)}
+          <strong>${course.pricing.amount} {course.pricing.currency}</strong> Until {getMonthAndDay(course.pricing.valid_until)}
         </Typography>
       </Grid>
       <Grid sx={{justifySelf: "left"}} xs={4}>

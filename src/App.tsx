@@ -40,10 +40,10 @@ function App() {
                           p: 2,
                           display: 'flex',
                           flexDirection: 'column',
-                          boxShadow: 'sm',
                           borderRadius: 'md',
                           borderWidth: 2,
-                          borderSizing: 'border-box'
+                          borderSizing: 'border-box',
+                          backgroundColor: 'white'
                         },
                         {
                           '&:hover': {
@@ -55,7 +55,7 @@ function App() {
                     >
                       <Grid display="flex" alignItems="flex-end" sx={{paddingLeft: 0}}> 
                         <Radio value={`course${item.id}`} variant="outlined" sx={{flexDirection: 'row'}} color="primary" />
-                        <Typography level="title-sm" sx={{ marginLeft: '10px' }}>
+                        <Typography level="title-md" sx={{ marginLeft: '10px', fontWeight: 700, color: '#600C20'}}>
                           Virtual Course
                         </Typography>
                       </Grid>                     
