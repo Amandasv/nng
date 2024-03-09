@@ -21,55 +21,57 @@ export function BookmarkButton({ id }: Saved) {
     }
   }, [bookmarkedData, bookmarked])
 
-  const existe = bookmarkedList.some(item => item.id === id);
+  // const existe = bookmarkedList.some(item => item.id === id);
 
   useEffect(() => {
-    if (existe) {
-      console.log('caiu no useEffect')
-      setBookmarked(true)
-    }
+    console.log('id->', id)
+    // if (existe) {
+    //   console.log('caiu no useEffect')
+    //   setBookmarked(true)
+    // }
   }, [id])
 
 
-  console.log('existe??', existe)
+  // console.log('existe??', existe)
 
   // console.log('state -bookmarkedList', bookmarkedList)
 
 
   const addBookmark = () => {
-    console.log('caiu do addBookmark')
     if (id) {
-      saveBookmark.mutate(id)
-      if (saveBookmark.isSuccess) {
-        console.log('SUCESSO')
-        setBookmarked(true)
+      try {
+        saveBookmark.mutate(id)
+        setIsBookmarked(true)
+      } catch (error) {
+        console.log(error)
       }
     }
-
   }
 
   const removeBookmark = () => {
     console.log('caiu no removeBookmark')
-    if (deleteCourse.isSuccess) {
-      console.log('foi DELETADO com SUCESSO')
-      setBookmarked(false)
-    }
+    // if (deleteCourse.isSuccess) {
+    //   console.log('foi DELETADO com SUCESSO')
+    //   setBookmarked(false)
+    // }
   }
 
   const handleBookmarkClick = () => {
-    if (!bookmarked) {
-      addBookmark();
-    } else {
+    if (isBookmarked) {
+      console.log('true')
       removeBookmark();
+    } else {
+      console.log('false')
+      addBookmark();
     }
   }
 
-  const toggleBookmark = () => {
-    setIsBookmarked(prevState => !prevState);
-  };
+  // const toggleBookmark = () => {
+  //   setIsBookmarked(prevState => !prevState);
+  // };
 
   return (
-    <Button color="primary" onClick={toggleBookmark} variant="plain" startDecorator={isBookmarked ? <BookmarkOutlined />: <BookmarkBorderOutlined /> }
+    <Button color="primary" onClick={handleBookmarkClick} variant="plain" startDecorator={isBookmarked ? <BookmarkOutlined />: <BookmarkBorderOutlined /> }
       sx={[{ mt: '10px', fontSize: '1rem' },
       {
         '&:hover': { textDecoration: 'underline', backgroundColor: 'white' }
